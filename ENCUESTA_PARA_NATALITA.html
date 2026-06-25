@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Encuesta para nuestra cita 💘</title>
+  <style>
+    :root {
+      --bg1: #ffdde1;
+      --bg2: #ee9ca7;
+      --card: #ffffff;
+      --text: #2d2d2d;
+      --accent: #ff4f81;
+      --accent-dark: #d93667;
+      --soft: #fff0f5;
+      --shadow: rgba(0, 0, 0, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: var(--text);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "23 23 23 23 23 23 23 23 23 23 23 23";
+      position: fixed;
+      inset: -60px;
+      z-index: 0;
+      font-size: 62px;
+      line-height: 1.9;
+      letter-spacing: 24px;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.38);
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.18);
+      transform: rotate(-18deg);
+      word-spacing: 30px;
+      pointer-events: none;
+      white-space: pre-wrap;
+    }
+
+    body::after {
+      content: "23 23 23 23 23 23 23 23 23 23 23 23\A 23 23 23 23 23 23 23 23 23 23 23 23\A 23 23 23 23 23 23 23 23 23 23 23 23\A 23 23 23 23 23 23 23 23 23 23 23 23\A 23 23 23 23 23 23 23 23 23 23 23 23\A 23 23 23 23 23 23 23 23 23 23 23 23\A 23 23 23 23 23 23 23 23 23 23 23 23\A 23 23 23 23 23 23 23 23 23 23 23 23";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      font-size: 36px;
+      line-height: 2.35;
+      letter-spacing: 16px;
+      font-weight: 800;
+      color: rgba(217, 54, 103, 0.22);
+      text-shadow: 0 0 8px rgba(217, 54, 103, 0.12);
+      transform: rotate(14deg) scale(1.18);
+      pointer-events: none;
+      white-space: pre-wrap;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 430px;
+      background: rgba(255, 255, 255, 0.94);
+      border-radius: 24px;
+      box-shadow: 0 14px 35px var(--shadow);
+      padding: 26px 22px;
+      text-align: center;
+      animation: pop 0.35s ease;
+      position: relative;
+      z-index: 1;
+      backdrop-filter: blur(6px);
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.96); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .emoji {
+      font-size: 42px;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: 25px;
+      margin: 8px 0 10px;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin: 6px 0 16px;
+    }
+
+    p {
+      line-height: 1.45;
+      font-size: 16px;
+      margin: 8px 0 18px;
+    }
+
+    .progress {
+      height: 8px;
+      width: 100%;
+      background: #f1f1f1;
+      border-radius: 99px;
+      overflow: hidden;
+      margin: 16px 0 22px;
+    }
+
+    .bar {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      border-radius: 99px;
+      transition: width 0.25s ease;
+    }
+
+    .options {
+      display: grid;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .transition-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 6;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      background: rgba(255, 240, 245, 0.92);
+      backdrop-filter: blur(8px);
+    }
+
+    .transition-overlay.show {
+      display: flex;
+    }
+
+    .transition-box {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(255,255,255,0.98);
+      border-radius: 26px;
+      padding: 24px 20px;
+      text-align: center;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.20);
+      border: 2px solid rgba(255,79,129,0.16);
+      animation: pop 0.25s ease;
+    }
+
+    .transition-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--accent-dark);
+      margin-bottom: 10px;
+    }
+
+    .transition-answer {
+      font-size: 28px;
+      line-height: 1.2;
+      font-weight: 800;
+      margin: 10px 0 14px;
+    }
+
+    .transition-emoji {
+      font-size: 60px;
+      line-height: 1.2;
+      margin: 12px 0;
+      animation: bounce 1s infinite ease-in-out;
+    }
+
+    .transition-subtext {
+      font-size: 22px;
+      line-height: 1.25;
+      font-weight: 800;
+      color: var(--accent-dark);
+      margin-top: 8px;
+      animation: pulse 1.1s infinite ease-in-out;
+    }
+
+    .emoji-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 10px 0;
+      font-size: 40px;
+      animation: sway 1.2s infinite ease-in-out;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-10px) scale(1.08); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.07); }
+    }
+
+    @keyframes sway {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    button, .option {
+      border: none;
+      border-radius: 16px;
+      padding: 15px 16px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .option {
+      background: var(--soft);
+      color: var(--text);
+      box-shadow: 0 4px 12px rgba(255, 79, 129, 0.12);
+    }
+
+    .option:hover, button:hover {
+      transform: translateY(-2px);
+    }
+
+    .primary {
+      background: var(--accent);
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 8px 18px rgba(255, 79, 129, 0.32);
+      width: 100%;
+    }
+
+    button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none !important;
+      box-shadow: none;
+    }
+
+    .letter-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(45, 45, 45, 0.38);
+      backdrop-filter: blur(5px);
+    }
+
+    .letter-overlay.show {
+      display: flex;
+    }
+
+    .letter-box {
+      width: 100%;
+      max-width: 450px;
+      max-height: 86vh;
+      overflow: auto;
+      background: #fffdf8;
+      border-radius: 24px;
+      padding: 24px 20px;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.24);
+      border: 2px solid rgba(255, 79, 129, 0.16);
+      animation: pop 0.25s ease;
+    }
+
+    .letter-box h2 {
+      color: var(--accent-dark);
+      margin-bottom: 12px;
+    }
+
+    .letter-text {
+      text-align: left;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #3a2b2b;
+      white-space: pre-line;
+      background: linear-gradient(#fffdf8, #fff7fa);
+      border-radius: 18px;
+      padding: 16px;
+      border: 1px solid rgba(255, 79, 129, 0.12);
+    }
+
+    .letter-actions {
+      margin-top: 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .secondary {
+      background: #eeeeee;
+      color: #333;
+      width: 100%;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+
+
+    .challenge-count {
+      font-size: 14px;
+      color: var(--accent-dark);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .challenge-textarea {
+      width: 100%;
+      min-height: 140px;
+      border: 2px solid rgba(255, 79, 129, 0.22);
+      border-radius: 18px;
+      padding: 14px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      line-height: 1.45;
+      outline: none;
+      resize: vertical;
+      background: #fff7fa;
+      color: var(--text);
+      box-shadow: inset 0 2px 8px rgba(255, 79, 129, 0.08);
+    }
+
+    .challenge-textarea:focus {
+      border-color: var(--accent);
+      background: #fff;
+    }
+
+    .challenge-hint {
+      font-size: 13px;
+      color: #777;
+      margin-top: 10px;
+      min-height: 18px;
+    }
+
+
+    .frog-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 7;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      background: rgba(255, 240, 245, 0.90);
+      backdrop-filter: blur(8px);
+    }
+
+    .frog-overlay.show {
+      display: flex;
+    }
+
+    .frog-scene {
+      position: relative;
+      width: 100%;
+      max-width: 390px;
+      min-height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .frog {
+      font-size: 74px;
+      line-height: 1;
+      animation: frogEnter 1.25s ease-out forwards, frogHop 0.55s ease-in-out 1.25s 4;
+      filter: drop-shadow(0 10px 12px rgba(0,0,0,0.16));
+    }
+
+    .speech-bubble {
+      position: relative;
+      margin-top: 18px;
+      background: #fff;
+      color: var(--text);
+      border-radius: 20px;
+      padding: 16px 18px;
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.25;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.16);
+      border: 2px solid rgba(255,79,129,0.18);
+      max-width: 330px;
+      opacity: 0;
+      transform: translateY(10px) scale(0.96);
+      animation: bubbleIn 0.35s ease 1.35s forwards;
+    }
+
+    .speech-bubble::before {
+      content: "";
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 22px;
+      height: 22px;
+      background: #fff;
+      border-left: 2px solid rgba(255,79,129,0.18);
+      border-top: 2px solid rgba(255,79,129,0.18);
+    }
+
+    .surprise-gif {
+      margin: 10px auto 16px;
+      padding: 18px 14px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #fff7fa, #fffdf8);
+      border: 2px solid rgba(255,79,129,0.16);
+      box-shadow: 0 10px 24px rgba(255,79,129,0.14);
+    }
+
+    .surprise-emoji {
+      font-size: 66px;
+      margin-bottom: 10px;
+      animation: revealPop 0.9s infinite ease-in-out;
+    }
+
+    .surprise-text {
+      font-size: 19px;
+      line-height: 1.25;
+      font-weight: 900;
+      color: var(--accent-dark);
+      animation: pulse 1.1s infinite ease-in-out;
+    }
+
+    @keyframes frogEnter {
+      0% { transform: translate(-110vw, 35vh) scale(0.8); }
+      55% { transform: translate(18px, -18px) scale(1.12); }
+      78% { transform: translate(-8px, 8px) scale(0.96); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+
+    @keyframes frogHop {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-16px) scale(1.06); }
+    }
+
+    @keyframes bubbleIn {
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes revealPop {
+      0%, 100% { transform: rotate(-3deg) scale(1); }
+      50% { transform: rotate(3deg) scale(1.12); }
+    }
+
+
+    .warning-bounce {
+      animation: warningBounce 0.85s cubic-bezier(.2, .9, .25, 1.25);
+    }
+
+    @keyframes warningBounce {
+      0% { transform: scale(1); }
+      25% { transform: scale(0.72); }
+      55% { transform: scale(1.08); }
+      75% { transform: scale(0.96); }
+      100% { transform: scale(1); }
+    }
+
+    .rani-corner {
+      position: absolute;
+      top: 14px;
+      left: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      max-width: 190px;
+      z-index: 2;
+      text-align: left;
+    }
+
+    .rani-mini {
+      font-size: 34px;
+      line-height: 1;
+      filter: drop-shadow(0 5px 7px rgba(0,0,0,0.14));
+      animation: miniHop 0.9s infinite ease-in-out;
+    }
+
+    .rani-bubble {
+      background: #fff;
+      border: 2px solid rgba(255,79,129,0.18);
+      border-radius: 14px;
+      padding: 8px 10px;
+      font-size: 12px;
+      line-height: 1.2;
+      font-weight: 800;
+      color: var(--accent-dark);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    }
+
+    .rani-name {
+      display: block;
+      color: #2f8f46;
+      font-size: 11px;
+      margin-bottom: 2px;
+    }
+
+    @keyframes miniHop {
+      0%, 100% { transform: translateY(0) rotate(-4deg); }
+      50% { transform: translateY(-7px) rotate(4deg); }
+    }
+
+    .answers {
+      text-align: left;
+      background: #fff7fa;
+      border-radius: 16px;
+      padding: 14px;
+      font-size: 15px;
+      margin: 14px 0;
+    }
+
+    .answers div {
+      margin: 8px 0;
+    }
+
+    .funny {
+      font-size: 15px;
+      color: var(--accent-dark);
+      font-weight: bold;
+      min-height: 22px;
+      margin-top: 10px;
+    }
+
+    .send-status {
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 14px;
+      background: var(--soft);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .tiny {
+      font-size: 13px;
+      color: #777;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <section id="intro">
+      <div class="emoji">💌</div>
+      <h1>Encuesta oficial para nuestra cita</h1>
+      <p>Antes de confirmar la misión romántica, hay una carta que debes abrir primero.</p>
+      <button class="secondary" onclick="openLetter()">Abrir primero 💌</button>
+      <button id="startBtn" class="primary" onclick="startSurvey()" disabled>Empezar encuesta</button>
+      <p id="introHint" class="tiny">El botón se desbloquea después de leer la carta.</p>
+    </section>
+
+    <section id="survey" class="hidden">
+      <div class="progress"><div id="bar" class="bar"></div></div>
+      <div class="emoji" id="questionEmoji">🍽️</div>
+      <h2 id="questionText"></h2>
+      <div id="options" class="options"></div>
+    </section>
+
+    <section id="warning" class="hidden">
+      <div class="rani-corner">
+        <div class="rani-mini">🐸</div>
+        <div id="raniWarningBubble" class="rani-bubble"><span class="rani-name">RANI</span>Dale a la opción de no... hazme caso 😏</div>
+      </div>
+      <div class="emoji">⚠️</div>
+      <h1>Último paso</h1>
+      <p>No se enviará al autor y responsable de la cita si no se completan las siguientes pruebas.</p>
+      <p>Las pruebas son confidenciales y probablemente un poco absurdas.</p>
+      <p>Estas preguntas marcarán la decisión de la cena.</p>
+      <button class="primary" onclick="acceptMission()">Sí, acepto 💖</button>
+      <button id="noBtn" class="secondary" onclick="rejectMission()">No acepto 😶</button>
+      <div id="funnyMessage" class="funny"></div>
+    </section>
+
+
+    <section id="challenges" class="hidden">
+      <div class="progress"><div id="challengeBar" class="bar"></div></div>
+      <div class="challenge-count" id="challengeCount"></div>
+      <div class="emoji" id="challengeEmoji">🧩</div>
+      <h2 id="challengeQuestion"></h2>
+      <textarea id="challengeAnswer" class="challenge-textarea" placeholder="Escribe aquí tu respuesta, princesa..."></textarea>
+      <p id="challengeHint" class="challenge-hint">No hace falta que sea perfecto, solo que sea tuyo.</p>
+      <button class="primary" onclick="saveChallengeAnswer()">Siguiente prueba 💘</button>
+    </section>
+
+    <section id="final" class="hidden">
+      <div class="surprise-gif">
+        <div class="surprise-emoji">🎁✨</div>
+        <div class="surprise-text">¿No querías que el día fuese sorpresa?<br>Pues prepárate, Natalita... porque lo bueno está por llegar 💘</div>
+      </div>
+      <h1>Pruebas completadas</h1>
+      <p>Has superado la parte secreta. Ahora solo queda enviar las respuestas al organizador oficial de esta aventura.</p>
+      <div class="answers hidden" id="summary"></div>
+      <div id="sendStatus" class="send-status">Preparando envío de respuestas...</div>
+    </section>
+  </main>
+
+
+
+  <div id="frogOverlay" class="frog-overlay">
+    <div class="frog-scene">
+      <div class="frog">🐸</div>
+      <div class="speech-bubble"><span class="rani-name">RANI</span>Ánimo Natalita, hazlo lo mejor que puedas.<br>Confío en ti 💚</div>
+    </div>
+  </div>
+
+  <div id="transitionOverlay" class="transition-overlay">
+    <div class="transition-box">
+      <div class="transition-title">Decisión registrada ✨</div>
+      <div id="transitionAnswer" class="transition-answer"></div>
+      <div id="transitionEmoji" class="transition-emoji"></div>
+      <div id="transitionEmojiRow" class="emoji-row hidden"></div>
+      <div id="transitionSubtext" class="transition-subtext"></div>
+    </div>
+  </div>
+
+  <div id="letterOverlay" class="letter-overlay">
+    <div class="letter-box">
+      <div class="emoji">💖</div>
+      <h2>Una carta antes de empezar</h2>
+      <div class="letter-text">Hola pequeña princesa, ayer fuiste a la peluquería a ponerte todavía más guapa, si es que eso es posible en este mundo. Espero que sepas que ocurre hoy? Si, exacto, nos vamos de cita super romántica mega ultra. Desgraciadamente, no pudimos celebrar nuestros preciosos 2 añitos juntos, pero nunca nada es un obstáculo para nosotros, siempre sabemos que hacer ante cualquier situación, alguien me enseño que mientras que se tenga amor, no se necesita nada más. Te he preparado algo muy divertido, que se que te encanta, pero antes, quiero que sepas una cosa, no es algo que te digo siempre en las cartas, pero debo decírtelo, ESTOY MUY ORGULLOSO DE TI, no por nada en especial sino por todo en conjunto. Estás, consiguiendo ser una persona que sabe pelear por sus sueños, le cueste lo que cueste. Estás consiguiendo poco a poco convertirte en una persona maravillosa, más de lo que todavía eras y sobre todo sobre todo, estas cada vez más cerca de ser la ilusión de ir al cole de muchos niños que querrán ir a ver su maestra preferida, ánimo todos esos niños esperan a su seño NATALIA. Por otro lado, gracias, de verdad que gracias, por que gracias a tu trabajo y esfuerzo, se que mis hijos van a crecer en una familia perfecta en la que sus padres los quieran y en la que sus padres se quieran. Cada vez que pienso en familia, nos veo a nosotros, pensando que todo nos viene grande pero enseguida PUM, eres la madre que siempre he soñado para mis hijos. No hace falta que te diga que te deseo siempre lo mejor, pero si que diga que nos deseo lo mejor. Es cierto, que a pesar de nuestros pequeños roces hemos conseguido sumar otro año más, y estos 730 días a tu lado como pareja se me han hecho muy cortos, tan cortos que necesito más, 1000/2000/3000...hasta llegar a una vida entera, vivir contigo es mi siguiente objetivo en la vida por que aunque me cueste demostrarlo, que hay mejor que vivir con la que sabes, que para ti, es el amor de tu vida. Siempre hemos dicho que lo nuestro es algo superior, todas las casualidades, todo lo que nos ocurre, pero cada vez que estoy a tu lado me doy cuenta de que no, no es casualidad, alguien nos ha puesto en el momento y tiempo exacto para que lo nuestro no sea del momento sino de una vida entera. Te amo, mi pequeña.</div>
+      <div class="letter-actions">
+        <button class="primary" onclick="closeLetterAndUnlock()">Ya he leído la carta 💌</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // CONFIGURACIÓN DE ENVÍO
+    // Pega aquí la URL de Formspree o de Google Apps Script para recibir las respuestas automáticamente.
+    // Ejemplo Formspree: https://formspree.io/f/xxxxxxx
+    // Ejemplo Apps Script: https://script.google.com/macros/s/XXXXXXXX/exec
+    const SUBMIT_ENDPOINT = "https://formspree.io/f/xbdvgzob";
+    const OWNER_EMAIL = "raulgg.033@gmail.com";
+
+    const questions = [
+      {
+        text: "¿Qué tipo de cena te apetece hoy?",
+        emoji: "🍽️",
+        options: ["Pizza 🍕", "Hamburguesa 🍔", "Tapitas variadas 🫒"]
+      },
+      {
+        text: "Elige tu nivel de princesa para esta noche",
+        emoji: "👑",
+        options: ["Princesa tranquila", "Princesa con hambre", "Princesa que finge que no se emociona pero sí"]
+      },
+      {
+        text: "¿Qué tipo de música quieres para el camino?",
+        emoji: "🎶",
+        options: ["Reggaetón", "Música romántica", "Música animada", "Lo que ponga el chófer"]
+      },
+      {
+        text: "¿Qué te apetece después de cenar?",
+        emoji: "🌙",
+        options: ["Paseo romántico", "Helado o postre", "Copita tranquila"]
+      },
+      {
+        text: "¿Qué te apetece hacer antes de cenar?",
+        emoji: "✨",
+        options: ["Momento de cine (eliges tú la peli)", "Ver el atardecer", "Zumito y charlita"]
+      },
+      {
+        text: "¿Cómo de guapa vas a ir esta noche?",
+        emoji: "💄",
+        options: ["Bueno, iré guapa", "Te voy a impresionar", "De la impresión te vas a mear"]
+      },
+      {
+        text: "¿Cómo quieres que sea nuestra noche?",
+        emoji: "💞",
+        options: ["Noche adulta", "Noche romántica", "Somos dos niños pequeños"]
+      },
+      {
+        text: "¿Cuándo nos damos los regalos?",
+        emoji: "🎁",
+        options: ["Antes de cenar", "Durante la cena", "Después de la cena"]
+      },
+      {
+        text: "¿Cómo quieres cerrar la noche?",
+        emoji: "🌌",
+        options: ["Conversación profunda", "Yendo a dormir enseguida", "TODA...LA...NOCHE...ACTIVOS...(Atrevidos) mínimo 4 de la mañana"]
+      },
+      {
+        text: "¿Cuando nos vayamos a dormir?",
+        emoji: "😏",
+        options: ["Polvazo del momento", "Nada, nos vamos a dormir, estamos cansados", "Deja que fluya"]
+      }
+    ]
+
+    let currentQuestion = 0;
+    const answers = [];
+    let currentChallenge = 0;
+    const challengeAnswers = [];
+    let noClicks = 0;
+
+    const challenges = [
+      {
+        text: "¿Cuál es la fecha más importante de nuestra relación?",
+        emoji: "📅"
+      },
+      {
+        text: "¿Qué comimos cada uno el día de nuestra primera cita?",
+        emoji: "🍽️"
+      },
+      {
+        text: "¿Cuándo fue la primera vez que te cociné algo? ¿Y qué fue?",
+        emoji: "👨‍🍳"
+      },
+      {
+        text: "¿Cuál es nuestra hija ahora mismo, a la que tenemos que cuidar para que no muera?",
+        emoji: "🌱"
+      },
+      {
+        text: "Define la relación en 3 palabras",
+        emoji: "💞"
+      },
+      {
+        text: "¿Tienes algo que decirme? Te dejo libertad para que escribas todo lo que quieras",
+        emoji: "💌"
+      }
+    ];
+
+
+    function openLetter() {
+      document.getElementById("letterOverlay").classList.add("show");
+    }
+
+    function closeLetterAndUnlock() {
+      document.getElementById("letterOverlay").classList.remove("show");
+      const startBtn = document.getElementById("startBtn");
+      startBtn.disabled = false;
+      startBtn.textContent = "Empezar encuesta 💘";
+      document.getElementById("introHint").textContent = "Carta leída. Ya puedes empezar la misión romántica.";
+    }
+
+    function startSurvey() {
+      document.getElementById("intro").classList.add("hidden");
+      document.getElementById("survey").classList.remove("hidden");
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const question = questions[currentQuestion];
+      document.getElementById("questionText").textContent = question.text;
+      document.getElementById("questionEmoji").textContent = question.emoji;
+      document.getElementById("bar").style.width = ((currentQuestion) / questions.length * 100) + "%";
+
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+
+      question.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.className = "option";
+        btn.textContent = option;
+        btn.onclick = () => selectOption(option);
+        optionsDiv.appendChild(btn);
+      });
+    }
+
+    function selectOption(option) {
+      const answeredIndex = currentQuestion;
+      answers.push({
+        question: questions[answeredIndex].text,
+        answer: option
+      });
+
+      showTransition(answeredIndex, option, () => {
+        currentQuestion++;
+
+        if (currentQuestion < questions.length) {
+          showQuestion();
+        } else {
+          document.getElementById("bar").style.width = "100%";
+          setTimeout(() => {
+            document.getElementById("survey").classList.add("hidden");
+            const warning = document.getElementById("warning");
+            warning.classList.remove("hidden");
+            warning.classList.remove("warning-bounce");
+            void warning.offsetWidth;
+            warning.classList.add("warning-bounce");
+            setTimeout(() => warning.classList.remove("warning-bounce"), 900);
+          }, 250);
+        }
+      });
+    }
+
+    function showTransition(questionIndex, option, onDone) {
+      const overlay = document.getElementById("transitionOverlay");
+      const answerEl = document.getElementById("transitionAnswer");
+      const emojiEl = document.getElementById("transitionEmoji");
+      const rowEl = document.getElementById("transitionEmojiRow");
+      const subtextEl = document.getElementById("transitionSubtext");
+
+      const config = getTransitionContent(questionIndex, option);
+
+      answerEl.textContent = config.answerText || option;
+      emojiEl.textContent = config.emoji || "✨";
+      subtextEl.textContent = config.subtext || "Siguiente paso de la misión romántica...";
+      rowEl.innerHTML = config.row ? config.row.map(item => `<span>${item}</span>`).join("") : "";
+      rowEl.classList.toggle("hidden", !config.row || !config.row.length);
+
+      overlay.classList.add("show");
+
+      setTimeout(() => {
+        overlay.classList.remove("show");
+        onDone();
+      }, config.duration || 1700);
+    }
+
+    function getTransitionContent(questionIndex, option) {
+      if (questionIndex === 0) {
+        const map = {
+          "Pizza 🍕": { emoji: "🍕", row: ["🍕", "🤤", "🍕"], subtext: "ÑAAAMMM" },
+          "Hamburguesa 🍔": { emoji: "🍔", row: ["🍟", "🍔", "🤤"], subtext: "ÑAAAMMM" },
+          "Tapitas variadas 🫒": { emoji: "🫒", row: ["🧀", "🫒", "🍤"], subtext: "ÑAAAMMM" }
+        };
+        return { answerText: option, ...(map[option] || {}), duration: 1800 };
+      }
+
+      if (questionIndex === 1) {
+        const map = {
+          "Princesa tranquila": { emoji: "👑", row: ["👑", "😴", "✨"], subtext: "Estado seleccionado: princesa tranquila" },
+          "Princesa con hambre": { emoji: "👑", row: ["👑", "🍔", "✨"], subtext: "Estado seleccionado: princesa con hambre" },
+          "Princesa que finge que no se emociona pero sí": { emoji: "👑", row: ["👑", "💖", "✨"], subtext: "Estado seleccionado: emoción controlada" }
+        };
+        return { answerText: option, ...(map[option] || {}), duration: 1800 };
+      }
+
+      if (questionIndex === 2) {
+        const map = {
+          "Reggaetón": { emoji: "🎵", row: ["🔥", "🎶", "💃"], subtext: "Modo perreo elegante activado" },
+          "Música romántica": { emoji: "🎼", row: ["💖", "🎶", "🌹"], subtext: "Modo corazón blandito activado" },
+          "Música animada": { emoji: "🎧", row: ["🥳", "🎶", "✨"], subtext: "Modo energía y risas activado" },
+          "Lo que ponga el chófer": { emoji: "🚗", row: ["🚗", "🎶", "😎"], subtext: "El chófer toma el control de la banda sonora" }
+        };
+        return { answerText: option, ...(map[option] || {}), duration: 1800 };
+      }
+
+      if (questionIndex === 3) {
+        const map = {
+          "Paseo romántico": { emoji: "🚶‍♀️", row: ["🌙", "💑", "✨"], subtext: "Después de cenar... paseíto nivel peli" },
+          "Helado o postre": { emoji: "🍨", row: ["🍰", "🍨", "🤍"], subtext: "Después de cenar... el postre no se perdona" },
+          "Copita tranquila": { emoji: "🥂", row: ["🥂", "✨", "🌙"], subtext: "Después de cenar... brindis elegante" }
+        };
+        return { answerText: option, ...(map[option] || {}), duration: 1600 };
+      }
+
+      if (questionIndex === 4) {
+        const map = {
+          "Momento de cine (eliges tú la peli)": { emoji: "🎬", row: ["🍿", "🎬", "❤️"], subtext: "Pre-cena de cine activado" },
+          "Ver el atardecer": { emoji: "🌅", row: ["🌅", "💖", "✨"], subtext: "Pre-cena con atardecer precioso" },
+          "Zumito y charlita": { emoji: "🧃", row: ["🧃", "💬", "😊"], subtext: "Pre-cena suave, rica y con charla" }
+        };
+        return { answerText: option, ...(map[option] || {}), duration: 1600 };
+      }
+
+      if (questionIndex === 5) {
+        const map = {
+          "Bueno, iré guapa": { emoji: "💅", row: ["✨", "😉", "✨"], subtext: "Nivel belleza: ya peligroso" },
+          "Te voy a impresionar": { emoji: "😍", row: ["💄", "✨", "💖"], subtext: "Nivel belleza: impacto asegurado" },
+          "De la impresión te vas a mear": { emoji: "🤯", row: ["👠", "✨", "🔥"], subtext: "Nivel belleza: fuera de control" }
+        };
+        return { answerText: option, ...(map[option] || {}), duration: 1700 };
+      }
+
+      if (questionIndex === 6) {
+        const map = {
+          "Noche adulta": { emoji: "🥂", row: ["😏", "🥂", "🌙"], subtext: "Modo noche adulta seleccionado" },
+          "Noche romántica": { emoji: "💞", row: ["🌹", "💖", "✨"], subtext: "Modo noche romántica seleccionado" },
+          "Somos dos niños pequeños": { emoji: "🧸", row: ["😂", "🧸", "🎈"], subtext: "Modo caos bonito y risas activado" }
+        };
+        return { answerText: option, ...(map[option] || {}), duration: 1600 };
+      }
+
+      if (questionIndex === 7) {
+        const map = {
+          "Antes de cenar": { emoji: "🎁", row: ["🎁", "😍", "✨"], subtext: "Regalos tempraneros... me gusta" },
+          "Durante la cena": { emoji: "🍽️", row: ["🎁", "🍽️", "💖"], subtext: "Regalos durante la cena... momento de película" },
+          "Después de la cena": { emoji: "🌙", row: ["🌙", "🎁", "🥰"], subtext: "Regalos para el gran final" }
+        };
+        return { answerText: option, ...(map[option] || {}), duration: 1600 };
+      }
+
+      if (questionIndex === 8) {
+        const map = {
+          "Conversación profunda": { emoji: "🫶", row: ["💬", "🫶", "🌌"], subtext: "Final de noche con charla de las buenas" },
+          "Yendo a dormir enseguida": { emoji: "🛌", row: ["😴", "🛌", "🌙"], subtext: "Final de noche en modo descanso express" },
+          "TODA...LA...NOCHE...ACTIVOS...(Atrevidos) mínimo 4 de la mañana": { emoji: "🔥", row: ["🔥", "😈", "🌙"], subtext: "Final de noche... bastante intenso" }
+        };
+        return { answerText: option, ...(map[option] || {}), duration: 1750 };
+      }
+
+      if (questionIndex === 9) {
+        const map = {
+          "Polvazo del momento": { emoji: "😏", row: ["😏", "🔥", "💋"], subtext: "Anotado... la noche promete" },
+          "Nada, nos vamos a dormir, estamos cansados": { emoji: "😴", row: ["🛌", "😴", "🤍"], subtext: "Anotado... modo descanso activado" },
+          "Deja que fluya": { emoji: "✨", row: ["✨", "💫", "😌"], subtext: "Anotado... dejamos que la noche decida" }
+        };
+        return { answerText: option, ...(map[option] || {}), duration: 1800 };
+      }
+
+      if (questionIndex >= 10) {
+        const idx = questionIndex - 10;
+        const configs = [
+          { emoji: "📅", row: ["📅", "💖", "✨"], subtext: "Fecha guardada en el corazón" },
+          { emoji: "🍽️", row: ["🍽️", "🤔", "💘"], subtext: "Recuerdo gastronómico registrado" },
+          { emoji: "👨‍🍳", row: ["🍳", "👨‍🍳", "❤️"], subtext: "Momento chef desbloqueado" },
+          { emoji: "🌱", row: ["🌱", "💧", "☀️"], subtext: "La hija queda bajo supervisión oficial" },
+          { emoji: "💞", row: ["💬", "💞", "✨"], subtext: "Tres palabras, mucho significado" },
+          { emoji: "💌", row: ["💌", "🥹", "❤️"], subtext: "Mensaje libre recibido" }
+        ];
+        const shortAnswer = option.length > 55 ? option.slice(0, 55) + "..." : option;
+        return { answerText: shortAnswer, ...(configs[idx] || {}), duration: 1700 };
+      }
+
+      return { answerText: option, emoji: "✨", subtext: "Siguiente decisión romántica...", duration: 1600 };
+    }
+
+    function rejectMission() {
+      const raniBubble = document.getElementById("raniWarningBubble");
+      const messages = [
+        "RANI tenía razón... dale otra vez a No 😌",
+        "Bien, bien... otra vez. No preguntes, confía en la rana 🐸",
+        "Una más, Natalita. Esto es ciencia romántica.",
+        "Jajajaja vale, otra vez y ya casi está.",
+        "Vengaaa, dale a que síiii y enfréntate a las preguntas 💖"
+      ];
+
+      const message = messages[Math.min(noClicks, messages.length - 1)];
+      document.getElementById("funnyMessage").textContent = message;
+      if (raniBubble) {
+        raniBubble.innerHTML = `<span class="rani-name">RANI</span>${message}`;
+      }
+
+      noClicks++;
+
+      const noBtn = document.getElementById("noBtn");
+      if (noClicks >= 5) {
+        noBtn.textContent = "Ya no puedo más, voy al Sí 🐸";
+      } else {
+        noBtn.textContent = "No acepto otra vez 😶";
+      }
+      noBtn.style.transform = `translateX(${noClicks % 2 === 0 ? -10 : 10}px) rotate(${noClicks % 2 === 0 ? -1 : 1}deg)`;
+    }
+
+    function acceptMission() {
+      document.getElementById("warning").classList.add("hidden");
+      currentChallenge = 0;
+      showFrogIntro(() => {
+        document.getElementById("challenges").classList.remove("hidden");
+        showChallenge();
+      });
+    }
+
+    function showFrogIntro(onDone) {
+      const overlay = document.getElementById("frogOverlay");
+      overlay.classList.add("show");
+      setTimeout(() => {
+        overlay.classList.remove("show");
+        onDone();
+      }, 4200);
+    }
+
+    function showChallenge() {
+      const challenge = challenges[currentChallenge];
+      document.getElementById("challengeCount").textContent = `Prueba ${currentChallenge + 1} de ${challenges.length}`;
+      document.getElementById("challengeQuestion").textContent = challenge.text;
+      document.getElementById("challengeEmoji").textContent = challenge.emoji;
+      document.getElementById("challengeAnswer").value = "";
+      document.getElementById("challengeBar").style.width = ((currentChallenge) / challenges.length * 100) + "%";
+      document.querySelector('#challenges button').textContent = currentChallenge === challenges.length - 1 ? "Terminar pruebas 💌" : "Siguiente prueba 💘";
+      document.getElementById("challengeHint").textContent = currentChallenge === challenges.length - 1
+        ? "Aquí tienes libertad total. Puedes escribir poco, mucho o dejarle sin palabras."
+        : "No hace falta que sea perfecto, solo que sea tuyo.";
+    }
+
+    function saveChallengeAnswer() {
+      const textarea = document.getElementById("challengeAnswer");
+      const value = textarea.value.trim();
+
+      if (!value) {
+        document.getElementById("challengeHint").textContent = "Esta prueba no se puede dejar vacía, princesa 😌";
+        textarea.focus();
+        return;
+      }
+
+      challengeAnswers.push({
+        question: challenges[currentChallenge].text,
+        answer: value
+      });
+
+      currentChallenge++;
+      if (currentChallenge < challenges.length) {
+        showChallenge();
+      } else {
+        finishChallenges();
+      }
+    }
+
+    function finishChallenges() {
+      document.getElementById("challengeBar").style.width = "100%";
+      document.getElementById("challenges").classList.add("hidden");
+      document.getElementById("final").classList.remove("hidden");
+      submitAnswers();
+    }
+
+    function buildEmailBody() {
+      const lines = [
+        "Nueva respuesta a la encuesta de la cita 💌",
+        "",
+        "Resultado: misión aceptada 💖",
+        "",
+        "Respuestas:"
+      ];
+
+      answers.forEach((item, index) => {
+        lines.push(`${index + 1}. ${item.question}`);
+        lines.push(`   Respuesta: ${item.answer}`);
+        lines.push("");
+      });
+
+      lines.push("Pruebas:");
+      challengeAnswers.forEach((item, index) => {
+        lines.push(`${index + 1}. ${item.question}`);
+        lines.push(`   Respuesta: ${item.answer}`);
+        lines.push("");
+      });
+
+      lines.push(`Fecha: ${new Date().toLocaleString("es-ES")}`);
+      return lines.join("\n");
+    }
+
+    async function submitAnswers() {
+      const status = document.getElementById("sendStatus");
+      const payload = {
+        _subject: "Respuestas encuesta cita 💌",
+        subject: "Respuestas encuesta cita 💌",
+        mensaje: buildEmailBody(),
+        respuestas_encuesta: answers.map(item => `${item.question}: ${item.answer}`).join("\n"),
+        respuestas_pruebas: challengeAnswers.map(item => `${item.question}: ${item.answer}`).join("\n"),
+        accepted: true,
+        answers: JSON.stringify(answers),
+        challenges: JSON.stringify(challengeAnswers),
+        date: new Date().toISOString()
+      };
+
+      if (!SUBMIT_ENDPOINT) {
+        const subject = encodeURIComponent("Respuestas encuesta cita 💌");
+        const body = encodeURIComponent(buildEmailBody());
+        const mailto = `mailto:${OWNER_EMAIL}?subject=${subject}&body=${body}`;
+        status.innerHTML = `Para que Raúl reciba tus respuestas, pulsa aquí:<br><br><a href="${mailto}"><button class="primary">Enviar respuestas por correo 💌</button></a><br><br><span class="tiny">Nota: esto abrirá el correo del móvil con el mensaje preparado.</span>`;
+        return;
+      }
+
+      try {
+        const response = await fetch(SUBMIT_ENDPOINT, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          throw new Error("Formspree no confirmó el envío");
+        }
+
+        status.textContent = "Respuestas enviadas correctamente a Raúl 💌";
+      } catch (error) {
+        const subject = encodeURIComponent("Respuestas encuesta cita 💌");
+        const body = encodeURIComponent(buildEmailBody());
+        const mailto = `mailto:${OWNER_EMAIL}?subject=${subject}&body=${body}`;
+        status.innerHTML = `No se ha podido enviar automáticamente, pero puedes mandarlas pulsando aquí:<br><br><a href="${mailto}"><button class="primary">Enviar respuestas por correo 💌</button></a>`;
+      }
+    }
+  </script>
+</body>
+</html>
