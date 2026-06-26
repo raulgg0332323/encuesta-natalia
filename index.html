@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan de Aniversario ❤️</title>
+    <style>
+        :root {
+            --primary: #ff4f7b;
+            --primary-dark: #e84362;
+            --secondary: #ffd6e0;
+            --bg1: #fff5f7;
+            --bg2: #ffe8ee;
+            --text: #2f3542;
+            --muted: #747d8c;
+            --card-bg: rgba(255, 255, 255, 0.92);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 20% 20%, rgba(255, 79, 123, 0.22), transparent 28%),
+                radial-gradient(circle at 80% 80%, rgba(255, 214, 224, 0.85), transparent 30%),
+                linear-gradient(135deg, var(--bg1), var(--bg2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .hearts {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .heart {
+            position: absolute;
+            bottom: -40px;
+            color: rgba(255, 79, 123, 0.25);
+            font-size: 22px;
+            animation: floatUp 8s linear infinite;
+        }
+
+        .heart:nth-child(1) { left: 8%; animation-delay: 0s; font-size: 20px; }
+        .heart:nth-child(2) { left: 22%; animation-delay: 2s; font-size: 30px; }
+        .heart:nth-child(3) { left: 40%; animation-delay: 4s; font-size: 18px; }
+        .heart:nth-child(4) { left: 65%; animation-delay: 1s; font-size: 26px; }
+        .heart:nth-child(5) { left: 82%; animation-delay: 3s; font-size: 22px; }
+        .heart:nth-child(6) { left: 93%; animation-delay: 5s; font-size: 28px; }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(-115vh) rotate(360deg); opacity: 0; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 540px;
+            background: var(--card-bg);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 30px;
+            box-shadow: 0 25px 65px rgba(232, 67, 98, 0.18);
+            padding: 30px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            top: -90px;
+            right: -80px;
+            border-radius: 50%;
+            background: rgba(255, 79, 123, 0.15);
+        }
+
+        .container::after {
+            content: "";
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            bottom: -80px;
+            left: -70px;
+            border-radius: 50%;
+            background: rgba(255, 214, 224, 0.8);
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .top-pill {
+            display: inline-block;
+            background: #fff0f4;
+            color: var(--primary);
+            padding: 8px 15px;
+            border-radius: 999px;
+            font-weight: 800;
+            font-size: 13px;
+            letter-spacing: 0.3px;
+            margin-bottom: 12px;
+            box-shadow: 0 8px 18px rgba(255, 79, 123, 0.12);
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 28px;
+            margin: 6px 0 10px;
+            line-height: 1.15;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 16px;
+            margin: 0 0 28px;
+            line-height: 1.5;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+            animation: popIn 0.45s ease both;
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: translateY(18px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .btn-category {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            width: 100%;
+            border: none;
+            border-radius: 20px;
+            padding: 17px 18px;
+            margin: 13px 0;
+            cursor: pointer;
+            background: white;
+            color: var(--text);
+            font-size: 18px;
+            font-weight: 850;
+            box-shadow: 0 12px 26px rgba(47, 53, 66, 0.08);
+            transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+        }
+
+        .btn-category:hover,
+        .btn-category:active {
+            transform: translateY(-4px) scale(1.01);
+            background: #fff4f7;
+            box-shadow: 0 16px 30px rgba(255, 79, 123, 0.18);
+        }
+
+        .emoji-circle {
+            min-width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #ffe1e8, #fff7f9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+        }
+
+        .btn-category span.text {
+            text-align: left;
+        }
+
+        .restaurant-option {
+            position: relative;
+            text-align: left;
+            padding: 19px;
+            margin-bottom: 14px;
+            border-radius: 21px;
+            background: white;
+            box-shadow: 0 12px 26px rgba(47, 53, 66, 0.07);
+            cursor: pointer;
+            overflow: hidden;
+            transition: transform 0.22s ease, box-shadow 0.22s ease;
+            border: 2px solid transparent;
+        }
+
+        .restaurant-option::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(255, 79, 123, 0.13), transparent);
+            opacity: 0;
+            transition: opacity 0.22s ease;
+        }
+
+        .restaurant-option:hover,
+        .restaurant-option:active {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 34px rgba(255, 79, 123, 0.16);
+            border-color: rgba(255, 79, 123, 0.35);
+        }
+
+        .restaurant-option:hover::before,
+        .restaurant-option:active::before {
+            opacity: 1;
+        }
+
+        .restaurant-inner {
+            position: relative;
+            z-index: 2;
+        }
+
+        .restaurant-option h3 {
+            margin: 0 0 7px;
+            font-size: 19px;
+            color: var(--text);
+            padding-right: 72px;
+        }
+
+        .restaurant-option p {
+            margin: 0;
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.45;
+        }
+
+        .badge {
+            position: absolute;
+            z-index: 3;
+            right: 15px;
+            top: 15px;
+            background: #fff0f4;
+            color: var(--primary);
+            padding: 6px 11px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+        .back-button, .restart-button {
+            margin-top: 12px;
+            border: none;
+            background: transparent;
+            color: var(--primary);
+            font-weight: 850;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .success-icon {
+            font-size: 62px;
+            animation: bounce 1.2s ease infinite;
+            margin-bottom: 12px;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .result-box {
+            margin-top: 20px;
+            padding: 24px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #fff0f4, #ffffff);
+            border: 2px dashed var(--primary);
+            box-shadow: inset 0 0 0 6px rgba(255, 255, 255, 0.55);
+        }
+
+        .result-box h2 {
+            margin: 8px 0;
+            color: var(--primary);
+            font-size: 26px;
+        }
+
+        .tiny-label {
+            margin: 0;
+            font-size: 13px;
+            color: var(--muted);
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: 0.4px;
+        }
+
+        .final-details {
+            margin: 4px 0 0;
+            color: var(--text);
+            line-height: 1.45;
+        }
+
+        .mini-note {
+            margin: 20px 0 4px;
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .sparkle {
+            display: inline-block;
+            animation: sparkle 1.4s ease infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.2) rotate(8deg); opacity: 0.75; }
+        }
+
+        @media (max-width: 430px) {
+            body {
+                padding: 14px;
+            }
+
+            .container {
+                padding: 24px 18px;
+                border-radius: 26px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .subtitle {
+                font-size: 15px;
+            }
+
+            .btn-category {
+                font-size: 16px;
+                padding: 15px;
+            }
+
+            .emoji-circle {
+                min-width: 44px;
+                height: 44px;
+                font-size: 23px;
+            }
+
+            .restaurant-option h3 {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hearts">
+    <div class="heart">❤️</div>
+    <div class="heart">💕</div>
+    <div class="heart">💖</div>
+    <div class="heart">❤️</div>
+    <div class="heart">💕</div>
+    <div class="heart">💘</div>
+</div>
+
+<div class="container">
+    <div class="content">
+        <div id="step1" class="step active">
+            <div class="top-pill">PLAN SORPRESA DE ANIVERSARIO</div>
+            <h1>¿Dónde cenamos hoy? ❤️</h1>
+            <p class="subtitle">Elige el tipo de comida que más te apetece y yo me encargo del resto.</p>
+
+            <button class="btn-category" onclick="selectCategory('italiano')">
+                <span class="emoji-circle">🍝</span>
+                <span class="text">Italiano romántico</span>
+            </button>
+
+            <button class="btn-category" onclick="selectCategory('hamburguesa')">
+                <span class="emoji-circle">🍔</span>
+                <span class="text">Hamburguesas brutales</span>
+            </button>
+
+            <button class="btn-category" onclick="selectCategory('mediterraneo')">
+                <span class="emoji-circle">🌊</span>
+                <span class="text">Mediterráneo / tapeo</span>
+            </button>
+        </div>
+
+        <div id="step2" class="step">
+            <div class="top-pill" id="category-pill">ELIGE TU FAVORITO</div>
+            <h1>Ahora toca decidir sitio 😍</h1>
+            <p class="subtitle">He preparado varias opciones para que elijas la que más te guste.</p>
+            <div id="restaurant-list"></div>
+            <button class="back-button" onclick="changeStep('step2', 'step1')">← Volver a elegir tipo de comida</button>
+        </div>
+
+        <div id="step3" class="step">
+            <div class="success-icon">🥂</div>
+            <div class="top-pill">MATCH PERFECTO</div>
+            <h1>¡Planazo confirmado! <span class="sparkle">✨</span></h1>
+            <p class="subtitle">Cena de aniversario elegida. Ahora toca disfrutarla como se merece.</p>
+
+            <div class="result-box">
+                <p class="tiny-label">Nos vamos a cenar a:</p>
+                <h2 id="final-restaurant">Restaurante</h2>
+                <p id="final-details" class="final-details"></p>
+            </div>
+
+            <p class="mini-note">Prometo buena cena, buena compañía y una noche bonita ❤️</p>
+            <button class="restart-button" onclick="changeStep('step3', 'step1')">Elegir otra vez</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const restaurantes = {
+        italiano: [
+            { nombre: "Mondo Italiano", emoji: "🍝", detalle: "Opción italiana con ambiente perfecto para una cena tranquila y bonita." },
+            { nombre: "Grosso Napolitano", emoji: "🍕", detalle: "Pizzas napolitanas, rollo moderno y un plan muy fácil de acertar." },
+            { nombre: "La Tarantolla", emoji: "🇮🇹", detalle: "Italiano con encanto para una cena especial de aniversario." }
+        ],
+        hamburguesa: [
+            { nombre: "El Rubio", emoji: "🍔", detalle: "Hamburguesas potentes para una cena informal, rica y con mucho rollo." },
+            { nombre: "Castillo Encantado", emoji: "🏰", detalle: "Una opción diferente y divertida para hacer la noche más especial." },
+            { nombre: "FBI", emoji: "🕵️", detalle: "Plan de burger con nombre mítico y cena sin complicaciones." },
+            { nombre: "El Capo", emoji: "🔥", detalle: "Hamburguesas con personalidad para ir a por algo sabroso y contundente." }
+        ],
+        mediterraneo: [
+            { nombre: "Tapeoteca", emoji: "🥘", detalle: "Tapeo mediterráneo para compartir platos y probar un poco de todo." },
+            { nombre: "La Tapa", emoji: "🍷", detalle: "Clásico plan de tapas, perfecto para una cena relajada y con encanto." },
+            { nombre: "Torango", emoji: "🌊", detalle: "Opción mediterránea con buen rollo para una noche especial." }
+        ]
+    };
+
+    const nombresCategoria = {
+        italiano: "ITALIANO ROMÁNTICO",
+        hamburguesa: "HAMBURGUESAS BRUTALES",
+        mediterraneo: "MEDITERRÁNEO / TAPEO"
+    };
+
+    function selectCategory(category) {
+        const listContainer = document.getElementById('restaurant-list');
+        const categoryPill = document.getElementById('category-pill');
+
+        categoryPill.innerText = nombresCategoria[category];
+        listContainer.innerHTML = '';
+
+        restaurantes[category].forEach((rest, index) => {
+            const card = document.createElement('div');
+            card.className = 'restaurant-option';
+            card.style.animation = `popIn 0.35s ease both`;
+            card.style.animationDelay = `${index * 0.08}s`;
+            card.onclick = () => finishSurvey(rest.nombre, rest.detalle, rest.emoji);
+
+            card.innerHTML = `
+                <span class="badge">Opción ${index + 1}</span>
+                <div class="restaurant-inner">
+                    <h3>${rest.emoji} ${rest.nombre}</h3>
+                    <p>${rest.detalle}</p>
+                </div>
+            `;
+
+            listContainer.appendChild(card);
+        });
+
+        changeStep('step1', 'step2');
+    }
+
+    function finishSurvey(nombre, detalle, emoji) {
+        document.getElementById('final-restaurant').innerText = `${emoji} ${nombre}`;
+        document.getElementById('final-details').innerText = `${detalle} • Una velada especial nos espera.`;
+        changeStep('step2', 'step3');
+        launchConfetti();
+    }
+
+    function changeStep(oldStepId, newStepId) {
+        document.getElementById(oldStepId).classList.remove('active');
+        document.getElementById(newStepId).classList.add('active');
+    }
+
+    function launchConfetti() {
+        const emojis = ["❤️", "✨", "💕", "🥂", "💖"];
+        for (let i = 0; i < 22; i++) {
+            const confetti = document.createElement("div");
+            confetti.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            confetti.style.position = "fixed";
+            confetti.style.left = Math.random() * 100 + "vw";
+            confetti.style.top = "-30px";
+            confetti.style.zIndex = "10";
+            confetti.style.fontSize = (18 + Math.random() * 18) + "px";
+            confetti.style.pointerEvents = "none";
+            confetti.style.transition = "transform 1.8s ease, opacity 1.8s ease";
+            document.body.appendChild(confetti);
+
+            setTimeout(() => {
+                confetti.style.transform = `translateY(${window.innerHeight + 80}px) rotate(${Math.random() * 360}deg)`;
+                confetti.style.opacity = "0";
+            }, 20);
+
+            setTimeout(() => confetti.remove(), 1900);
+        }
+    }
+</script>
+
+</body>
+</html>
